@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { useTranslation } from './i18n';
 import { ProfileData, UserDataCollection, AppCurrentPage, CareerPhase } from '../types'; // AppCurrentPage importiert
 import ProfileView from './components/ProfileView'; // Corrected path
 
@@ -34,15 +35,16 @@ const HomePage: React.FC<HomePageProps> = ({
   onResetProfile,
   renderFormattedText
 }) => {
+  const { t } = useTranslation();
 
   // Main navigation items on Home Page
   const mainNavItems = [
     {
       id: 'tools',
-      label: 'Meine GoodWork Tools',
+      label: t('home.nav.tools'),
       icon: <ToolsIcon />,
       targetPage: 'toolsOverview' as AppCurrentPage,
-      description: "Zugang zu Valou Styling, Identitätsprofil-Screenings und weiteren Werkzeugen.",
+      description: t('home.nav.tools.desc'),
       bgColor: 'bg-purple-100 hover:bg-purple-200',
       textColor: 'text-purple-700',
       borderColor: 'border-purple-400',
@@ -51,10 +53,10 @@ const HomePage: React.FC<HomePageProps> = ({
     },
     {
       id: 'coaching',
-      label: 'Dr. GoodWork Gesamt-Tipps',
+      label: t('home.nav.coaching'),
       icon: <CoachingIcon />,
       targetPage: null,
-      description: "Erhalte umfassende Tipps von Dr. GoodWork basierend auf all Deinen Daten.",
+      description: t('home.nav.coaching.desc'),
       bgColor: 'bg-indigo-100 hover:bg-indigo-200',
       textColor: 'text-indigo-700',
       borderColor: 'border-indigo-300',
@@ -63,10 +65,10 @@ const HomePage: React.FC<HomePageProps> = ({
     },
     {
       id: 'logbook',
-      label: 'GoodWork Logbuch',
+      label: t('home.nav.logbook'),
       icon: <LogbookIconNav />,
       targetPage: 'logbook' as AppCurrentPage,
-      description: "Dein persönliches Logbuch für Erkenntnisse, Wohlbefinden und Fortschritte.",
+      description: t('home.nav.logbook.desc'),
       bgColor: 'bg-amber-100 hover:bg-amber-200',
       textColor: 'text-amber-700',
       borderColor: 'border-amber-300',
@@ -75,10 +77,10 @@ const HomePage: React.FC<HomePageProps> = ({
     },
     {
       id: 'decisions',
-      label: 'Gute Entscheidungen treffen',
+      label: t('home.nav.decisions'),
       icon: <DecideIcon />,
       targetPage: 'decisionMakingOverview' as AppCurrentPage,
-      description: "Methoden und Hilfen für klare Entscheidungen.",
+      description: t('home.nav.decisions.desc'),
       bgColor: 'bg-green-100 hover:bg-green-200',
       textColor: 'text-green-700',
       borderColor: 'border-green-300',
@@ -87,10 +89,10 @@ const HomePage: React.FC<HomePageProps> = ({
     },
     {
       id: 'feelBetter',
-      label: 'Besser fühlen',
+      label: t('home.nav.feelBetter'),
       icon: <FeelIcon />,
       targetPage: 'feelBetterPage' as AppCurrentPage, // Cast for now
-      description: "Strategien und Werkzeuge für Dein Wohlbefinden (Demnächst).",
+      description: t('home.nav.feelBetter.desc'),
       bgColor: 'bg-yellow-100 hover:bg-yellow-200',
       textColor: 'text-yellow-700',
       borderColor: 'border-yellow-300',
@@ -99,10 +101,10 @@ const HomePage: React.FC<HomePageProps> = ({
     },
     {
       id: 'development',
-      label: 'Persönliche Entwicklung',
+      label: t('home.nav.development'),
       icon: <DevelopIcon />,
       targetPage: 'developmentPage' as AppCurrentPage, // Cast for now
-      description: "Plane und verfolge Deine Lern- und Wachstumsziele (Demnächst).",
+      description: t('home.nav.development.desc'),
       bgColor: 'bg-sky-100 hover:bg-sky-200',
       textColor: 'text-sky-700',
       borderColor: 'border-sky-300',
@@ -112,10 +114,10 @@ const HomePage: React.FC<HomePageProps> = ({
     // Kiosk kann ans Ende, da es weniger zentral ist als die anderen aktiven Tools
     {
       id: 'kiosk',
-      label: 'Ressourcen Kiosk',
+      label: t('home.nav.kiosk'),
       icon: <KioskIcon />,
       targetPage: 'kioskPage' as AppCurrentPage, // Cast for now
-      description: "Nützliche Infos, Artikel und Links für Deine GoodWork Journey (Demnächst).",
+      description: t('home.nav.kiosk.desc'),
       bgColor: 'bg-teal-100 hover:bg-teal-200',
       textColor: 'text-teal-700',
       borderColor: 'border-teal-300',
@@ -130,9 +132,9 @@ const HomePage: React.FC<HomePageProps> = ({
         <h1 className="text-5xl font-bold mb-3
                        bg-gradient-to-r from-pink-500 via-purple-500 to-sky-500
                        gradient-text">
-          GoodWork Crafting Zentrale
+          {t('home.title')}
         </h1>
-        <p className="text-xl text-slate-600">Gestalte Deine berufliche Zukunft aktiv und bewusst.</p>
+        <p className="text-xl text-slate-600">{t('home.subtitle')}</p>
       </header>
 
       <div className="flex justify-center mb-10">
@@ -145,7 +147,7 @@ const HomePage: React.FC<HomePageProps> = ({
 
       <details className="mb-12 bg-white bg-opacity-90 backdrop-blur-md shadow-2xl rounded-2xl border border-slate-200 overflow-hidden group">
         <summary className="text-2xl font-semibold text-purple-700 p-6 cursor-pointer list-none flex justify-between items-center hover:bg-purple-50 transition-colors duration-200 group-open:border-b group-open:border-slate-200">
-          Mein GoodWork Profil
+          {t('home.profile.title')}
           <span className="text-purple-500 transform transition-transform duration-300 ease-in-out group-open:rotate-180">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-6 h-6">
               <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
@@ -169,7 +171,7 @@ const HomePage: React.FC<HomePageProps> = ({
       `}</style>
 
       <section className="mb-12">
-        <h2 className="text-3xl font-semibold text-center text-purple-600 mb-8">Deine Steuerzentrale</h2>
+        <h2 className="text-3xl font-semibold text-center text-purple-600 mb-8">{t('home.controlCenter')}</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
           {mainNavItems.map((item) => (
             <button
@@ -187,14 +189,14 @@ const HomePage: React.FC<HomePageProps> = ({
               <div className="mb-4">{item.icon}</div>
               <h3 className="text-2xl font-semibold mb-3 text-center">{item.label}</h3>
               <p className="text-md flex-grow text-center">{item.description}</p>
-               {!item.available && <span className="mt-3 text-xs font-semibold bg-slate-500 text-white px-2.5 py-1 rounded-full">Demnächst</span>}
+               {!item.available && <span className="mt-3 text-xs font-semibold bg-slate-500 text-white px-2.5 py-1 rounded-full">{t('home.nav.comingSoon')}</span>}
             </button>
           ))}
         </div>
       </section>
 
        <p className="text-center text-xs text-slate-500 mt-16">
-        Die Ergebnisse aus Deinen Tools und Dein Verlauf fließen automatisch in Dein GoodWork Profil und werden für alle weiteren Analysen verwendet.
+        {t('home.footer')}
       </p>
     </div>
   );

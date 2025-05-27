@@ -38,6 +38,7 @@ import DecisionMakingOverviewPage from './components/DecisionMakingOverviewPage'
 import LogbookPage from './components/LogbookPage'; 
 import AiRecommendationModal from './components/AiRecommendationModal'; 
 import OnboardingFlow from './components/OnboardingFlow';
+import LanguageSwitcher from './components/LanguageSwitcher';
 import { 
   loadProfileDataFromLocalStorage,
   saveProfileDataToLocalStorage
@@ -476,6 +477,7 @@ const App = (): JSX.Element => {
 
   return (
     <div className="app bg-slate-100 min-h-screen">
+      <LanguageSwitcher />
       {renderPage()}
       <AiRecommendationModal
         isOpen={isModalOpen}
