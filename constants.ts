@@ -1,8 +1,10 @@
 
 
 import { ValouAreaItem, UserDataCollection, CategoryLabels, ProfileData, BigFiveTraitConfig, BigFiveDimensionScore, LogbookEntryValues, CareerPhase, FutureSkillDimensionScore } from './types';
+import { VALOU_AREAS_EN } from './constants_en';
+import { SupportedLanguage, getCurrentLanguage } from './i18n';
 
-export const VALOU_AREAS: ValouAreaItem[] = [
+export const VALOU_AREAS_DE: ValouAreaItem[] = [
   {
     id: 'privatesLeben',
     name: 'Privates Leben',
@@ -81,10 +83,19 @@ export const VALOU_AREAS: ValouAreaItem[] = [
   }
 ];
 
-// Helper to get initial LogbookEntryValues based on VALOU_AREAS names
-export const getInitialLogbookEntryValues = (): LogbookEntryValues => {
+// Helper to get VALOU areas depending on the selected language
+export const getValouAreas = (
+  lang: SupportedLanguage = getCurrentLanguage()
+): ValouAreaItem[] => {
+  return lang === 'en' ? VALOU_AREAS_EN : VALOU_AREAS_DE;
+};
+
+// Helper to get initial LogbookEntryValues based on VALOU area names
+export const getInitialLogbookEntryValues = (
+  lang: SupportedLanguage = getCurrentLanguage()
+): LogbookEntryValues => {
   const initialValues: Partial<LogbookEntryValues> = {};
-  VALOU_AREAS.forEach(area => {
+  getValouAreas(lang).forEach(area => {
     // Ensure the key matches the exact name string defined in LogbookEntryValues
     initialValues[area.name as keyof LogbookEntryValues] = 5;
   });
@@ -92,7 +103,7 @@ export const getInitialLogbookEntryValues = (): LogbookEntryValues => {
 };
 
 
-export const INITIAL_USER_DATA: UserDataCollection = VALOU_AREAS.reduce((acc, area) => {
+export const INITIAL_USER_DATA: UserDataCollection = VALOU_AREAS_DE.reduce((acc, area) => {
   acc[area.id] = {
     stylingSatz: '',
     vorlieben: [],

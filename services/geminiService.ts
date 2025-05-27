@@ -11,7 +11,7 @@ import {
     JobMatch, JobMatchingPreferences, MotivationScreeningData, MotiveDimensionScore,
     FutureSkillsScreeningData, FutureSkillDimensionScore, BigFiveTraitScore
 } from '../types';
-import { VALOU_AREAS, CATEGORY_LABELS, RIASEC_DESCRIPTIONS, BIG_FIVE_DIMENSION_DEFINITIONS, BIG_FIVE_TRAITS_CONFIG, MOTIVATION_DIMENSIONS_CONFIG, FUTURE_SKILLS_DIMENSIONS_CONFIG } from '../constants'; // Added FUTURE_SKILLS_DIMENSIONS_CONFIG
+import { getValouAreas, CATEGORY_LABELS, RIASEC_DESCRIPTIONS, BIG_FIVE_DIMENSION_DEFINITIONS, BIG_FIVE_TRAITS_CONFIG, MOTIVATION_DIMENSIONS_CONFIG, FUTURE_SKILLS_DIMENSIONS_CONFIG } from '../constants';
 import { areAllIdentityScreeningsComplete } from '../appUtils'; // For checking completeness
 
 const API_KEY = process.env.API_KEY;
@@ -143,7 +143,7 @@ ${getProfileReportSnippet(profileData, 500)}
 
 
   prompt += `\n**Gewünschter zukünftiger Zustand in verschiedenen Lebensbereichen (Valou-Analyse):**\n`;
-  VALOU_AREAS.forEach((area: ValouAreaItem) => {
+  getValouAreas().forEach((area: ValouAreaItem) => {
     const areaData = userData[area.id];
     if (areaData) {
       prompt += `\nBereich: ${area.name} (${area.description})\n`;
@@ -322,7 +322,7 @@ Hier sind weitere Daten aus dem Profil des Nutzers, die für die Vorschläge rel
   prompt += `\n- Fähigkeiten/Kompetenzen: ${profileData.faehigkeitenKompetenzen || "Keine Angabe"}\n`;
   prompt += `- Auszug aus dem Gesamtbericht zum beruflichen Identitätsprofil (falls vorhanden):\n ${getProfileReportSnippet(profileData)}\n\n`;
   
-  const valouStylingContext = VALOU_AREAS.map(area => {
+  const valouStylingContext = getValouAreas().map(area => {
     const data = profileData.valouZielstylingData[area.id];
     if (data && data.stylingSatz) {
       return `Valou Bereich ${area.name} - Stylingsatz: "${data.stylingSatz}"`;
@@ -542,7 +542,7 @@ export const generateValouZielsummary = async (valouData: UserDataCollection, pr
   const ai = new GoogleGenAI({ apiKey: API_KEY });
 
   let valouDataString = "";
-  VALOU_AREAS.forEach((area: ValouAreaItem) => {
+  getValouAreas().forEach((area: ValouAreaItem) => {
     const areaData = valouData[area.id];
     if (areaData) {
       valouDataString += `\n**Bereich: ${area.name} (${area.description})**\n`;
@@ -665,7 +665,7 @@ prompt += `
 - Fähigkeiten/Kompetenzen: ${profileData.faehigkeitenKompetenzen || "Keine Angabe"}
 - Zielbranchen: ${profileData.targetIndustries || "Keine Angabe"}
 - Valou Stylingsätze (falls vorhanden):
-${VALOU_AREAS.map(area => {
+${getValouAreas().map(area => {
   const data = profileData.valouZielstylingData[area.id];
   return data && data.stylingSatz ? `  - ${area.name}: "${data.stylingSatz}"` : null;
 }).filter(Boolean).join("\n") || "  Keine Valou Stylingsätze definiert."}
@@ -786,7 +786,7 @@ prompt += `
 - Fähigkeiten/Kompetenzen (manuell): ${profileData.faehigkeitenKompetenzen || "Keine Angabe"}
 - Zielbranchen (manuell): ${profileData.targetIndustries || "Keine Angabe"}
 - Valou Stylingsätze (falls vorhanden):
-${VALOU_AREAS.map(area => {
+ ${getValouAreas().map(area => {
   const data = profileData.valouZielstylingData[area.id];
   return data && data.stylingSatz ? `  - ${area.name}: "${data.stylingSatz}"` : null;
 }).filter(Boolean).join("\n") || "  Keine Valou Stylingsätze definiert."}
@@ -1186,7 +1186,7 @@ Schreibe in wertschätzender Du-Form, deutsch, klar und praxisnah.
   }
 
   promptContent += `\n**2. Valou Zielstyling (Wünsche & No-Gos in Lebensbereichen):**\n`;
-  VALOU_AREAS.forEach(area => {
+    getValouAreas().forEach(area => {
     const areaData = profileData.valouZielstylingData[area.id];
     if (areaData) {
       promptContent += `   **Bereich: ${area.name}** (${area.description})\n`;
@@ -1338,7 +1338,7 @@ export const findMatchingJobs = async (
 
   prompt += `
 **3. Valou Zielstyling (Wünsche & No-Gos in allen Lebensbereichen):**
-${VALOU_AREAS.map(area => {
+  ${getValouAreas().map(area => {
     const areaData = profileData.valouZielstylingData[area.id];
     if (!areaData) return '';
     let valouAreaInfo = `*   Bereich "${area.name}":\n`;
@@ -1540,7 +1540,7 @@ Der Report soll auf Deutsch, in wertschätzender Du-Form und praxisnah sein.
 
 
   promptContent += `\n**2. Valou Zielstyling (Wünsche & No-Gos in Lebensbereichen, insb. "Arbeit & Tätigkeit" und "Persönlichkeit & Skills"):**\n`;
-  VALOU_AREAS.forEach(area => {
+    getValouAreas().forEach(area => {
     const areaData = profileData.valouZielstylingData[area.id];
     if (areaData && (area.id === 'taetigkeit' || area.id === 'persoenlichkeitSkills' || areaData.mustHaves.length > 0 || areaData.noGos.length > 0)) {
       promptContent += `   **Bereich: ${area.name}**\n`;

@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
 import {
-  VALOU_AREAS,
+  getValouAreas,
   INITIAL_USER_DATA,
   EXAMPLE_USER_DATA,
   CATEGORY_LABELS,
@@ -54,7 +54,8 @@ const ValouStylingToolPage: React.FC<ValouStylingToolPageProps> = ({
   onGenerateValouSummary,
   renderFormattedText,
 }) => {
-  const [activeAreaId, setActiveAreaId] = useState<string>(VALOU_AREAS[0].id);
+  const valouAreas = getValouAreas();
+  const [activeAreaId, setActiveAreaId] = useState<string>(valouAreas[0].id);
   const [currentInternalView, setCurrentInternalView] = useState<'intro' | 'summary' | 'editor'>('intro'); 
   
   const [activeNewItemCategory, setActiveNewItemCategory] = useState<UserDataCategoryKey | null>(null);
@@ -104,7 +105,7 @@ const ValouStylingToolPage: React.FC<ValouStylingToolPageProps> = ({
   };
 
   const handleGenerateStylingSentence = async (areaId: string) => {
-    const area = VALOU_AREAS.find(a => a.id === areaId);
+    const area = valouAreas.find(a => a.id === areaId);
     if (!area || !valouData[areaId]) return;
     setStylingSentenceLoading(areaId);
     try {
@@ -123,7 +124,7 @@ const ValouStylingToolPage: React.FC<ValouStylingToolPageProps> = ({
   };
   
   const handleGenerateCategorySuggestions = async (areaId: string, category: UserDataCategoryKey) => {
-    const area = VALOU_AREAS.find(a => a.id === areaId);
+    const area = valouAreas.find(a => a.id === areaId);
     if (!area || !valouData[areaId]) return;
     setCategorySuggestionLoading({ areaId, category });
     setCurrentCategorySuggestions(null);
@@ -167,7 +168,7 @@ const ValouStylingToolPage: React.FC<ValouStylingToolPageProps> = ({
                 valouZielstylingData: deepClonedExampleData,
             }));
             setCurrentInternalView('editor'); 
-            setActiveAreaId(VALOU_AREAS[0].id);
+            setActiveAreaId(valouAreas[0].id);
             showAppNotification("Beispieldaten für Dein Valou Styling geladen.");
         }
     } else {
@@ -192,7 +193,7 @@ const ValouStylingToolPage: React.FC<ValouStylingToolPageProps> = ({
     setIsKiStylingInProgress(true);
     showAppNotification("KI Styling für alle Bereiche wird für Dich generiert/ergänzt...", "info", 5000);
     try {
-      const newStylingData = await generateKiStylingForAllAreas(profileData, VALOU_AREAS);
+      const newStylingData = await generateKiStylingForAllAreas(profileData, valouAreas);
       handleValouDataChange(newStylingData);
       // After KI styling, also regenerate and save the overall summary
       await onGenerateValouSummary();
@@ -228,7 +229,7 @@ const ValouStylingToolPage: React.FC<ValouStylingToolPageProps> = ({
     }
   };
   
-  const currentArea = VALOU_AREAS.find(a => a.id === activeAreaId) || VALOU_AREAS[0];
+  const currentArea = valouAreas.find(a => a.id === activeAreaId) || valouAreas[0];
   const currentAreaData = valouData[activeAreaId] || INITIAL_USER_DATA[activeAreaId];
 
   const actionButtonsViewMode = (currentInternalView === 'editor') ? 'editor' : 'summary';
@@ -272,7 +273,7 @@ const ValouStylingToolPage: React.FC<ValouStylingToolPageProps> = ({
           {currentInternalView === 'editor' ? (
             <>
               <ValouAreaNavigation
-                areas={VALOU_AREAS}
+                areas={valouAreas}
                 activeAreaId={activeAreaId}
                 onSelectArea={setActiveAreaId}
               />
@@ -297,14 +298,14 @@ const ValouStylingToolPage: React.FC<ValouStylingToolPageProps> = ({
           ) : ( 
             <div className="report-content-print"> {/* Wrapper for print styles */}
               <SummaryView
-                areas={VALOU_AREAS}
+                areas={valouAreas}
                 userData={valouData}
                 valouZielstylingSummary={profileData.valouZielstylingSummary}
                 renderFormattedText={renderFormattedText}
               />
             </div>
           )}
-          <ProgressOverview areas={VALOU_AREAS} userData={valouData} />
+          <ProgressOverview areas={valouAreas} userData={valouData} />
         </>
       )}
     </div>

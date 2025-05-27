@@ -1,9 +1,10 @@
 
 import React from 'react';
-import { VALOU_AREAS } from '../constants'; // Assuming VALOU_AREAS is correctly exported from constants
+import { getValouAreas } from '../constants';
 
 const ConceptIntroScreen: React.FC<{ onNext: () => void }> = ({ onNext }) => {
-  const valouEmojis = ['💼', '🏡', '💰', '🧠', '🎨', '❤️']; // Emojis an VALOU_AREAS anpassen
+  const valouEmojis = ['💼', '🏡', '💰', '🧠', '🎨', '❤️']; // Emojis aligned with VALOU areas
+  const valouAreas = getValouAreas();
 
   return (
     <div className="bg-white p-6 sm:p-10 rounded-xl shadow-2xl max-w-3xl w-full text-center animate-fadeIn">
@@ -26,7 +27,7 @@ const ConceptIntroScreen: React.FC<{ onNext: () => void }> = ({ onNext }) => {
           Zentral im GoodWork-Konzept stehen sechs Valous. Jeder Valou hat eine klare Rolle und Aufgabe:
         </p>
         <ul className="space-y-3 grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {VALOU_AREAS.map((valou, index) => (
+          {valouAreas.map((valou, index) => (
             <li key={valou.id} className="flex items-start p-3 bg-white rounded-md shadow-sm border border-purple-100 hover:shadow-md transition-shadow">
               <span className="text-2xl mr-3" role="img" aria-label={valou.name}>{valouEmojis[index % valouEmojis.length]}</span>
               <div>

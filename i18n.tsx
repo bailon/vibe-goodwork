@@ -4,6 +4,10 @@ import de from './locales/de.json';
 
 export type SupportedLanguage = 'en' | 'de';
 
+// Allow other modules to access the currently selected language
+let currentLanguage: SupportedLanguage = 'de';
+export const getCurrentLanguage = () => currentLanguage;
+
 type TranslationDictionaries = Record<string, string>;
 
 const dictionaries: Record<SupportedLanguage, TranslationDictionaries> = {
@@ -24,13 +28,20 @@ const I18nContext = createContext<I18nContextValue>({
 });
 
 export const I18nProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [language, setLanguage] = useState<SupportedLanguage>('de');
+  const [language, setLang] = useState<SupportedLanguage>(currentLanguage);
+
+  const updateLanguage = (lang: SupportedLanguage) => {
+    currentLanguage = lang;
+    setLang(lang);
+  };
+
   const translate = (key: string): string => {
     const dict = dictionaries[language] || {};
     return dict[key] || key;
   };
+
   return (
-    <I18nContext.Provider value={{ language, setLanguage, t: translate }}>
+    <I18nContext.Provider value={{ language, setLanguage: updateLanguage, t: translate }}>
       {children}
     </I18nContext.Provider>
   );

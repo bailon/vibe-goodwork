@@ -1,6 +1,6 @@
 
 import { UserDataCollection, ProfileData, UserDataCategoryKey } from './types';
-import { VALOU_AREAS, CATEGORY_LABELS, RELEVANT_IDENTITY_PROFILE_FIELDS } from './constants';
+import { getValouAreas, CATEGORY_LABELS, RELEVANT_IDENTITY_PROFILE_FIELDS } from './constants';
 
 export const isValouDataEffectivelyEmpty = (valouData: UserDataCollection): boolean => {
   if (!valouData) return true;
@@ -76,7 +76,7 @@ export const generateTxtContentForValou = (valouData: UserDataCollection, valouS
   txtContent += "DETAILS PRO BEREICH:\n";
   txtContent += "----------------------------------------\n\n";
 
-  VALOU_AREAS.forEach(area => {
+  getValouAreas().forEach(area => {
     const areaData = valouData[area.id];
     if (!areaData) return;
     txtContent += `${area.name.toUpperCase()}\n`;
