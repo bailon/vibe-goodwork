@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GoodWork Crafting Zentrale</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* For custom scrollbars if needed, and general body styling */
+    body {
+      font-family: 'Inter', sans-serif; /* A common Tailwind font */
+      background-color: #f0f2f5; /* Light gray background */
+    }
+    /* Custom scrollbar for better aesthetics */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 10px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #888;
+      border-radius: 10px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #555;
+    }
+    .gradient-text {
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      -webkit-text-fill-color: transparent;
+    }
+
+    @media print {
+      body {
+        font-family: 'Arial', sans-serif; /* Standard-Druckschrift */
+        font-size: 11pt;
+        line-height: 1.3;
+        background-color: #ffffff;
+        color: #000000;
+        margin: 0; /* Reset browser default margins for print */
+      }
+      
+      /* Hide elements not relevant for printing */
+      .print\:hidden {
+        display: none !important;
+      }
+      nav, button, input, select, textarea, /* Common form elements */
+      header > button, /* Specific back buttons etc. */
+      .action-buttons-container, /* Container for action buttons */
+      .valou-area-navigation, /* Valou navigation tabs */
+      .progress-overview, /* Progress overview component */
+      .modal-backdrop, /* Any modal backdrops */
+      .profile-actions, /* Save/Reset profile buttons if specific */
+      .navbar, /* Generic navbar class */
+      .sidebar, /* Generic sidebar class */
+      .footer, /* Generic footer class */
+      .home-page-header, /* If homepage has specific header elements not for print */
+      .tool-specific-nav /* If tools have sub-navigation */
+      {
+        display: none !important;
+      }
+
+      /* Ensure content in details elements is printed */
+      details {
+        page-break-inside: avoid;
+      }
+      details > summary {
+        list-style: none; /* Hide the triangle/marker */
+        pointer-events: none; /* No interaction in print */
+      }
+      details > summary::-webkit-details-marker {
+        display: none; /* Hide WebKit marker */
+      }
+      details[open] > summary ~ * {
+        display: block !important; /* Make sure content is visible */
+      }
+      details:not([open]) > summary ~ * {
+          display: block !important; /* Ensure content is visible even if not open on screen */
+      }
+      /* For specific details sections containing reports */
+      .printable-details-section {
+        border: none !important; /* Remove borders in print */
+        box-shadow: none !important; /* Remove shadows in print */
+        padding: 0 !important; /* Adjust padding if needed */
+        margin-bottom: 20px; /* Space between sections */
+      }
+      .printable-details-section > summary {
+        font-size: 14pt; /* Larger summary for section titles */
+        font-weight: bold;
+        margin-bottom: 10px;
+        color: black !important; /* Ensure summary text is black */
+      }
+      
+      /* Report content styling */
+      .report-content-print {
+        font-size: 10pt; /* Slightly smaller for dense reports */
+        line-height: 1.4;
+        color: #333; /* Dark gray for better readability than pure black for body text */
+      }
+      .report-content-print h1, .report-content-print h2, .report-content-print h3 {
+        color: black !important;
+        margin-top: 0.5em;
+        margin-bottom: 0.25em;
+        page-break-after: avoid;
+      }
+      .report-content-print h1 { font-size: 16pt; }
+      .report-content-print h2 { font-size: 14pt; }
+      .report-content-print h3 { font-size: 12pt; }
+      .report-content-print p { margin-bottom: 0.5em; }
+      .report-content-print ul, .report-content-print ol { margin-bottom: 0.5em; padding-left: 20px; }
+      .report-content-print table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 9pt;
+        margin-bottom: 1em;
+        page-break-inside: avoid;
+      }
+      .report-content-print th, .report-content-print td {
+        border: 1px solid #ccc;
+        padding: 4px 6px;
+        text-align: left;
+      }
+      .report-content-print th {
+        background-color: #f0f0f0;
+        font-weight: bold;
+      }
+      .report-content-print a {
+        color: #0000EE; /* Standard link color */
+        text-decoration: underline;
+      }
+      .report-content-print a[href^="/"]:after, 
+      .report-content-print a[href^="http"]:after,
+      .report-content-print a[href^="mailto"]:after {
+        /* content: " (" attr(href) ")"; remove this to not show links for now */
+        /* font-size: 90%; */
+      }
+
+      /* Page setup for A4 */
+      @page {
+        size: A4;
+        margin: 1.5cm; /* Standard A4 margins */
+      }
+    }
+  </style>
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@^19.1.0",
+    "react-dom/": "https://esm.sh/react-dom@^19.1.0/",
+    "react/": "https://esm.sh/react@^19.1.0/",
+    "@google/genai": "https://esm.sh/@google/genai@^1.0.1",
+    "recharts": "https://esm.sh/recharts@^2.15.3"
+  }
+}
+</script>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+</html><link rel="stylesheet" href="index.css">
+<script src="index.tsx" type="module"></script>
