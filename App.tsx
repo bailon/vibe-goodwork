@@ -1,10 +1,10 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
-import { 
-  VALOU_AREAS, 
-  INITIAL_PROFILE_DATA, 
+import {
+  getValouAreas,
+  INITIAL_PROFILE_DATA,
   // CATEGORY_LABELS, // No longer needed here, moved to appUtils
-  INITIAL_USER_DATA, 
+  INITIAL_USER_DATA,
   // RELEVANT_IDENTITY_PROFILE_FIELDS, // No longer needed here, moved to appUtils
   getInitialLogbookEntryValues,
   CAREER_PHASES,
@@ -458,7 +458,7 @@ const App = (): JSX.Element => {
                     onDeleteEntry={handleDeleteLogbookEntry}
                     onNavigateBack={() => setCurrentAppPage('toolsOverview')}
                     showAppNotification={displayAppNotification}
-                    valouAreas={VALOU_AREAS}
+                    valouAreas={getValouAreas()}
                     getInitialLogbookEntryValues={getInitialLogbookEntryValues}
                   />;
       default:

@@ -4,7 +4,7 @@
 
 import React, { ChangeEvent, useState } from 'react';
 import { ProfileData, UserDataCategoryKey, UserDataCollection, RiasecData, PersonalityScreeningData, BigFiveDimensionScore, CareerPhase } from '../types';
-import { VALOU_AREAS, CATEGORY_LABELS, RIASEC_DESCRIPTIONS, BIG_FIVE_DIMENSION_DEFINITIONS, CAREER_PHASES } from '../constants';
+import { getValouAreas, CATEGORY_LABELS, RIASEC_DESCRIPTIONS, BIG_FIVE_DIMENSION_DEFINITIONS, CAREER_PHASES } from '../constants';
 import UserCircleIcon from './icons/UserCircleIcon';
 import { isValouDataEffectivelyEmpty } from '../appUtils';
 import RefreshIcon from './icons/RefreshIcon'; // Using an existing icon
