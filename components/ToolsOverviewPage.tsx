@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { useTranslation } from '../i18n';
 
 // Placeholder Icons
 const ValouIcon = () => <span className="text-4xl" role="img" aria-label="Valou">🎨</span>;
@@ -18,14 +19,15 @@ interface ToolsOverviewPageProps {
 }
 
 const ToolsOverviewPage: React.FC<ToolsOverviewPageProps> = ({ onNavigate, onNavigateHome, showAppNotification }) => {
-  
+  const { t } = useTranslation();
+
   const toolNavItems = [
     { 
       id: 'valou', 
-      label: 'Valou Ziel-Styling', 
-      icon: <ValouIcon />, 
-      targetPage: 'valouStyling', 
-      description: "Definiere Deine Idealvorstellungen in sechs Lebensbereichen für Dein GoodWork Setup.",
+      label: t('home.nav.valou'),
+      icon: <ValouIcon />,
+      targetPage: 'valouStyling',
+      description: t('home.nav.valou.desc'),
       bgColor: 'bg-rose-100 hover:bg-rose-200', 
       textColor: 'text-rose-700', 
       borderColor: 'border-rose-300',
@@ -33,10 +35,10 @@ const ToolsOverviewPage: React.FC<ToolsOverviewPageProps> = ({ onNavigate, onNav
     },
     { 
       id: 'identity', 
-      label: 'Berufliches Identitätsprofil', 
-      icon: <IdentityIcon />, 
-      targetPage: 'identityProfileOverview', 
-      description: "Screenings zu Persönlichkeit, Interessen, Motiven und Future Skills.",
+      label: t('home.nav.identity'),
+      icon: <IdentityIcon />,
+      targetPage: 'identityProfileOverview',
+      description: t('home.nav.identity.desc'),
       bgColor: 'bg-sky-100 hover:bg-sky-200', 
       textColor: 'text-sky-700', 
       borderColor: 'border-sky-300',
@@ -44,10 +46,10 @@ const ToolsOverviewPage: React.FC<ToolsOverviewPageProps> = ({ onNavigate, onNav
     },
     { 
       id: 'logbook', 
-      label: 'GoodWork Logbuch', 
-      icon: <LogbookIcon />, 
-      targetPage: 'logbook', 
-      description: "Dein persönliches Logbuch für Erkenntnisse, Wohlbefinden und Fortschritte.", // Beschreibung aktualisiert
+      label: t('home.nav.logbook'),
+      icon: <LogbookIcon />,
+      targetPage: 'logbook',
+      description: t('home.nav.logbook.desc'),
       bgColor: 'bg-amber-100 hover:bg-amber-200', 
       textColor: 'text-amber-700', 
       borderColor: 'border-amber-300',
@@ -55,10 +57,10 @@ const ToolsOverviewPage: React.FC<ToolsOverviewPageProps> = ({ onNavigate, onNav
     },
     { 
       id: 'more', 
-      label: 'Weitere Tools', 
-      icon: <MoreIcon />, 
-      targetPage: 'moreTools', 
-      description: "Zukünftige Erweiterungen für Deine GoodWork Journey (Demnächst).",
+      label: t('home.nav.more'),
+      icon: <MoreIcon />,
+      targetPage: 'moreTools',
+      description: t('home.nav.more.desc'),
       bgColor: 'bg-lime-100 hover:bg-lime-200', 
       textColor: 'text-lime-700', 
       borderColor: 'border-lime-300',
@@ -80,16 +82,16 @@ const ToolsOverviewPage: React.FC<ToolsOverviewPageProps> = ({ onNavigate, onNav
         onClick={onNavigateHome}
         className="mb-8 px-5 py-2.5 bg-slate-700 text-white rounded-lg hover:bg-slate-800 transition-colors shadow hover:shadow-md text-sm flex items-center gap-2"
       >
-        <HomeIcon /> Zurück zur Crafting Zentrale
+        <HomeIcon /> {t('home.backToCenter')}
       </button>
 
       <header className="text-center mb-10">
-        <h1 className="text-4xl sm:text-5xl font-bold mb-3 
+        <h1 className="text-4xl sm:text-5xl font-bold mb-3
                        bg-gradient-to-r from-purple-500 via-sky-500 to-teal-500
                        gradient-text">
-          Deine GoodWork Tools
+          {t('home.nav.tools')}
         </h1>
-        <p className="text-lg sm:text-xl text-slate-600">Wähle ein Werkzeug, um Deine berufliche Klarheit zu schmieden.</p>
+        <p className="text-lg sm:text-xl text-slate-600">{t('tools.overview.subtitle')}</p>
       </header>
 
       <section className="mb-12">
@@ -109,7 +111,7 @@ const ToolsOverviewPage: React.FC<ToolsOverviewPageProps> = ({ onNavigate, onNav
               <div className="mb-4 text-5xl">{item.icon}</div>
               <h3 className="text-xl font-semibold mb-2 text-center">{item.label}</h3>
               <p className="text-sm flex-grow text-center">{item.description}</p>
-              {!item.available && <span className="mt-2 text-xs font-semibold bg-slate-500 text-white px-2 py-0.5 rounded-full">Demnächst</span>}
+              {!item.available && <span className="mt-2 text-xs font-semibold bg-slate-500 text-white px-2 py-0.5 rounded-full">{t('home.nav.comingSoon')}</span>}
             </button>
           ))}
         </div>
