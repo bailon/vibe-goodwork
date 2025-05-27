@@ -1,0 +1,29 @@
+# Node modules
+node_modules/
+
+# Build output
+dist/
+build/
+
+# Local environment variables
+.env
+.env.*
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS-specific files
+.DS_Store
+
+# IDE configuration
+.vscode/
+.idea/
+
+# Coverage output
+coverage/
+
+# Optional lock files
+pnpm-lock.yaml
+
