@@ -36,7 +36,8 @@ import MotivationToolPage from './components/MotivationToolPage';
 import FutureSkillsToolPage from './components/FutureSkillsToolPage'; // Added
 import DecisionMakingOverviewPage from './components/DecisionMakingOverviewPage';
 import LogbookPage from './components/LogbookPage'; 
-import AiRecommendationModal from './components/AiRecommendationModal'; 
+import AiRecommendationModal from './components/AiRecommendationModal';
+import Notification, { NotificationData } from './components/Notification';
 import OnboardingFlow from './components/OnboardingFlow';
 import LanguageSwitcher from './components/LanguageSwitcher';
 import { 
@@ -146,7 +147,7 @@ const App = (): JSX.Element => {
   const [aiSources, setAiSources] = useState<GroundingMetadata | undefined>(undefined);
   const [aiError, setAiError] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [showNotification, setShowNotification] = useState<{ message: string; type: 'success' | 'info' | 'error'; show: boolean }>({ message: '', type: 'info', show: false });
+  const [showNotification, setShowNotification] = useState<NotificationData>({ message: '', type: 'info', show: false });
 
   const [isLoadingDecisionCriteria, setIsLoadingDecisionCriteria] = useState<boolean>(false);
   const [isLoadingJobMatches, setIsLoadingJobMatches] = useState<boolean>(false);
@@ -489,16 +490,11 @@ const App = (): JSX.Element => {
         onSaveToProfile={handleSaveRecommendationToProfile}
         aiRecommendationText={aiRecommendation || ""}
       />
-      {showNotification.show && (
-        <div className={`fixed bottom-5 right-5 p-4 rounded-lg shadow-lg text-white print:hidden
-                         ${showNotification.type === 'success' ? 'bg-green-500' : 
-                           showNotification.type === 'info' ? 'bg-blue-500' : 'bg-red-500'}
-                         transition-opacity duration-300 ${showNotification.show ? 'opacity-100' : 'opacity-0'}`}
-             role="alert"
-        >
-          {showNotification.message}
-        </div>
-      )}
+      <Notification
+        show={showNotification.show}
+        message={showNotification.message}
+        type={showNotification.type}
+      />
     </div>
   );
 };
