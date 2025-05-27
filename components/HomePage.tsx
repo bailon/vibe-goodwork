@@ -3,6 +3,7 @@ import React from 'react';
 import { useTranslation } from '../i18n';
 import { ProfileData, UserDataCollection, AppCurrentPage, CareerPhase } from '../types';
 import ProfileView from './ProfileView';
+import NavCard, { NavItem } from './NavCard';
 
 // Icons for the main navigation card
 const ToolsIcon = () => <span className="text-5xl" role="img" aria-label="Tools">🧰</span>;
@@ -38,7 +39,7 @@ const HomePage: React.FC<HomePageProps> = ({
   const { t } = useTranslation();
 
   // Main navigation items on Home Page
-  const mainNavItems = [
+  const mainNavItems: NavItem[] = [
     {
       id: 'tools',
       label: t('home.nav.tools'),
@@ -174,23 +175,7 @@ const HomePage: React.FC<HomePageProps> = ({
         <h2 className="text-3xl font-semibold text-center text-purple-600 mb-8">{t('home.controlCenter')}</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
           {mainNavItems.map((item) => (
-            <button
-              key={item.id}
-              onClick={item.action || (() => {})}
-              className={`p-8 rounded-xl shadow-xl border-2
-                         transform hover:scale-105 transition-all duration-300 ease-in-out
-                         text-left flex flex-col items-center h-full
-                         ${item.id === 'tools' ? `${item.bgColor} border-purple-500 shadow-purple-200/50` : `${item.bgColor} ${item.borderColor}`}
-                         ${item.textColor}
-                         ${!item.available ? 'opacity-70 cursor-not-allowed' : ''}`}
-              aria-label={`Navigiere zu ${item.label}`}
-              disabled={!item.available && !item.action}
-            >
-              <div className="mb-4">{item.icon}</div>
-              <h3 className="text-2xl font-semibold mb-3 text-center">{item.label}</h3>
-              <p className="text-md flex-grow text-center">{item.description}</p>
-               {!item.available && <span className="mt-3 text-xs font-semibold bg-slate-500 text-white px-2.5 py-1 rounded-full">{t('home.nav.comingSoon')}</span>}
-            </button>
+            <NavCard key={item.id} item={item} comingSoonLabel={t('home.nav.comingSoon')} />
           ))}
         </div>
       </section>
